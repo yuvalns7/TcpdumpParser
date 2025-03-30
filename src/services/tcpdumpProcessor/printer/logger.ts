@@ -21,7 +21,6 @@ export class Logger {
   }
 
   log(message: string) {
-    console.log(message);
     if (this.logFilePath) {
       fs.appendFileSync(this.logFilePath, message + "\n");
     }

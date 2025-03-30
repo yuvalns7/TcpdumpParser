@@ -12,7 +12,7 @@ import {
 } from "./packetParser.util"
 import { IP_REGEX, TCPDUMP_HEADER_REGEX } from "./regex.const"
 
-export const parseTcpdumpPacket = (str: string) => {
+export const parseTcpdumpPacket = (str: string, lineIndex: number) => {
   const match = str.match(TCPDUMP_HEADER_REGEX)
 
   if (match && match.groups) {
@@ -26,6 +26,7 @@ export const parseTcpdumpPacket = (str: string) => {
       protocol: protocol === "Flags" ? "TCP" : (protocol as Packet["protocol"]),
       srcPort: convertToNumber(srcPort),
       dstPort: convertToNumber(dstPort),
+      line: lineIndex + 1
     }
 
     extractPacketDetails(parsedPacket, rest)
@@ -34,7 +35,7 @@ export const parseTcpdumpPacket = (str: string) => {
   return null //str does not match packet starcture
 }
 
-export const parsePartialPacket = (line: string) => {
+export const parsePartialPacket = (line: string, lineIndex: number) => {
   let packet: Partial<Packet> = {}
   extractFieldsFromRegex(PacketMetadataFields, line, packet)
 
@@ -49,6 +50,7 @@ export const parsePartialPacket = (line: string) => {
       srcPort: convertToNumber(srcPort),
       dstPort: convertToNumber(dstPort),
       protocol: protocol === "Flags" ? "TCP" : protocol,
+      line: lineIndex + 1
     }
   }
 

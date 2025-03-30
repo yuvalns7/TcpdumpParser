@@ -1,5 +1,6 @@
 import { Packet } from "../packetParser/packetParser.type"
 import { PACKET_TIMESTAMP_REGEX } from "../packetParser/regex.const"
+import { DNS_PORT } from "../tcpdumpProcessor.const"
 import { AnomalyRule } from "./anomalyDetector.type"
 import {
   isIPValid,
@@ -275,6 +276,20 @@ export const ICMPRules: AnomalyRule[] = [
     type: "ICMPrequiredField",
     explanation: "length is required for ICMP protocol packet",
   },
+  {
+    key: "srcPort",
+    label: "source port",
+    type: "IncorrectKey",
+    isValid: isUnexpectedField,
+    explanation: "source port should not appear in ICMP protocol packet",
+  },
+  {
+    key: "dstPort",
+    label: "destination port",
+    type: "IncorrectKey",
+    isValid: isUnexpectedField,
+    explanation: "destination port should not appear in ICMP protocol packet",
+  },
 ]
 
 export const HTTPRules: AnomalyRule[] = [
@@ -304,7 +319,8 @@ export const DNSRules: AnomalyRule[] = [
     explanation:
       "DNS requests are usually from high-numbered ports (>1024) and sent to port 53",
     isValid: (packet: Partial<Packet>) => {
-      return packet.srcPort === undefined || packet.srcPort > 1024
+      return (packet.srcPort === undefined || packet.srcPort === DNS_PORT || packet.srcPort > 1024) && 
+      (packet.dstPort === undefined || packet.dstPort === DNS_PORT || packet.dstPort > 1024) 
     },
   },
   {

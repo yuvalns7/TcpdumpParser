@@ -1,4 +1,5 @@
 export type Packet = {
+  line: number
   timestamp: string
   srcIP: string
   dstIP: string

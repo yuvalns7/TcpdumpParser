@@ -1,4 +1,5 @@
 import { Packet } from "../packetParser/packetParser.type"
+import { DNS_PORT } from "../tcpdumpProcessor.const"
 import {
   BaseAnomalyRules,
   DNSRules,
@@ -82,7 +83,7 @@ export const detectPacketAnomalies = (
   if (packet.http) 
     anomalyChecks.push(...HTTPRules)
 
-  if (packet.dstPort === 53) 
+  if (packet.dstPort === DNS_PORT || packet.srcPort === DNS_PORT) 
     anomalyChecks.push(...DNSRules)
   
   applyAnomalyRuleChecks(packet, anomalies, lineIndex, anomalyChecks)

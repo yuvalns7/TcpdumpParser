@@ -37,7 +37,7 @@ const processPacketLine = (
   malformedPackets: Partial<Packet>[],
   anomalies: Anomaly[]
 ) => {
-  const parsedPacket = parseTcpdumpPacket(line)
+  const parsedPacket = parseTcpdumpPacket(line, index)
 
   if (parsedPacket) {
     const packetAnomalies = detectPacketAnomalies(parsedPacket, index)
@@ -48,7 +48,7 @@ const processPacketLine = (
       validPackets.push(parsedPacket)
     }
   } else {
-    const partialPacket = parsePartialPacket(line)
+    const partialPacket = parsePartialPacket(line, index)
     malformedPackets.push(partialPacket)
     anomalies.push(...detectStructuralAnomalies(line, index))
     anomalies.push(...detectPacketAnomalies(partialPacket, index))
