@@ -40,7 +40,7 @@ POST /api/parseTcpdumpFile
 
 #### Example:
 ```sh
-curl -X POST -F "file=@example1.txt" http://localhost:3000/api/parseTcpdumpFile --output report.log
+curl -X POST -F "file=@tcpdump.txt" http://localhost:3000/api/parseTcpdumpFile --output report.log
 ```
 
 #### Response:
