@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 
-const LOG_DIR = path.join(__dirname, "../logs");
+const LOG_DIR = path.join(__dirname, "../../logs");
 const UPLOAD_DIR = path.join(__dirname, "../../uploads");
 
 export const ensureDirectoriesExist = () => {
