@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-A **TCPDump Parser API** that processes network traffic logs, detects anomalies, and generates structured reports. It allows users to upload TCPDump logs via an HTTP API, analyze packet data, and receive detailed insights.
+A **TCPDump Parser API** that processes network traffic logs, detects anomalies, and generates structured reports. It allows users to upload txt file with TCPDump logs via an HTTP API, analyze packet data, and receive detailed insights.
 
 ## ✨ Features
 
