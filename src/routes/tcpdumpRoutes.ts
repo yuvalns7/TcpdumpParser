@@ -16,8 +16,6 @@ const upload = multer({ dest: "uploads/" });
 
 router.post("/parseTcpdumpFile", upload.single("file"), async (req: Request, res: Response) => {
   try {
-    ensureDirectoriesExist();
-
     if (!req.file) return res.status(400).json({ error: "No file uploaded." });
 
     const filePath = req.file.path;
